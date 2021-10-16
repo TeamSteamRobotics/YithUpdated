@@ -21,6 +21,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.ManualShoot;
 import frc.robot.commands.MoveToIntake;
 import frc.robot.commands.MoveToShooter;
+import frc.robot.commands.RetractIntaker;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SixBallTrenchAuto;
 import frc.robot.commands.SpinIntake;
@@ -79,6 +80,7 @@ public class RobotContainer {
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+
   
 
 
@@ -90,27 +92,29 @@ public class RobotContainer {
 
 
   JoystickButton shootButton = new JoystickButton(stick, 1);
-  TriggerButton intakeButton = new TriggerButton(xboxController, Hand.kLeft);
-  JoystickButton spinUpButton = new JoystickButton(stick, 12);//xboxController, 6);
+  TriggerButton intakeButton = new TriggerButton(xboxController, Hand.kLeft); //left trigger
+  JoystickButton spinUpButton = new JoystickButton(stick, 2);//xboxController, 6); //thumb button on logeticc joysticc
   //JoystickButton climbDownButton = new JoystickButton(stick, 3 );
   //JoystickButton climbUpButton = new JoystickButton(xboxController, 5);
 
   //manual overrides
-  POVButton manualIntakeButton = new POVButton(xboxController, 270);
-  POVButton moveToShooterButton = new POVButton(xboxController, 0);
-  POVButton moveToIntakeButton = new POVButton(xboxController, 180);
-  POVButton manualShootButton = new POVButton(xboxController, 90);
-  JoystickButton vomitButton = new JoystickButton(xboxController, 2);
-  JoystickButton deployIntakeButton = new JoystickButton(xboxController, 10);
-  JoystickButton climbUpButton = new JoystickButton(xboxController, 5);
-  JoystickButton climbDownButton = new JoystickButton(xboxController, 6);
-  JoystickButton climbButton = new JoystickButton(xboxController, 4);
+  POVButton manualIntakeButton = new POVButton(xboxController, 270); //left POV
+  POVButton moveToShooterButton = new POVButton(xboxController, 0); //top POV
+  POVButton moveToIntakeButton = new POVButton(xboxController, 180); //bottom POV
+  POVButton manualShootButton = new POVButton(xboxController, 90); //right POV
+  JoystickButton vomitButton = new JoystickButton(xboxController, 2); //red b button
+  JoystickButton deployIntakeButton = new JoystickButton(stick, 7); //bottom analog touchdown
+  JoystickButton retractIntakeButton = new JoystickButton(stick, 8);
+  //JoystickButton climbUpButton = new JoystickButton(xboxController, 5); //left shoulder
+  //JoystickButton climbDownButton = new JoystickButton(xboxController, 6); //right shoulder
+  //JoystickButton climbButton = new JoystickButton(xboxController, 4);
   SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
+  
   public RobotContainer() {
     //NetworkTableEntry speed = Shuffleboard.getTab("Tab").add("Shooter Speed", 0).getEntry();
     // Configure the button bindings
@@ -119,7 +123,7 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, /*/() -> xboxController.getY(Hand.kLeft), () -> xboxController.getX(Hand.kLeft)));//*/stick::getY, stick::getX));
     //m_shooterSubsystem.setDefaultCommand(new RunCommand(() -> m_shooterSubsystem.movePID(speed.getDouble(0)), m_shooterSubsystem));
     //m_feederSubsystem.setDefaultCommand(new RunCommand(() -> m_feederSubsystem.move(stick.getY()), m_feederSubsystem));
-    //m_intakeSubsystem.setDefaultCommand(new RunCommand(() -> m_intakeSubsystem.setSpeed(-stick.getY()), m_intakeSubsystem));
+    //m_intakeSubsystem.setDefaultCommand(new RunCommand(() -> m_intakeSubsystem.setSpestick.getY()), m_intakeSubsystem));
     //m_climbSubsystem.setDefaultCommand(new RunCommand(()->m_climbSubsystem.setSpeed(xboxController.getY(Hand.kLeft)), m_climbSubsystem));
     ShuffleboardTab driveTab = Shuffleboard.getTab("drive");
     driveTab.add("Auto Mode", autoChooser);
@@ -143,14 +147,14 @@ public class RobotContainer {
     //aimButton.whileHeld(new StartEndCommand(() -> m_driveSubsystem.playMusic(), () -> {}, m_driveSubsystem));
     //aimButton.whileHeld(new StartEndCommand(() -> m_driveSubsystem.playTone(880 + 440 * stick.getThrottle()), () -> m_driveSubsystem.stop(), m_driveSubsystem));
     //shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem));
-    shootButton.whileHeld(new SequentialCommandGroup(
+    /*shootButton.whileHeld(new SequentialCommandGroup(
       new VisionTurn(m_driveSubsystem, m_visionSubsystem), 
       new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem)
-    ));
-    climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
-    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
+    ));*/
+    //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
+    //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
 
-    climbButton.whenPressed(new Climb(m_climbSubsystem, 0));//40960));
+    //climbButton.whenPressed(new Climb(m_climbSubsystem, 0));//40960));
    /* shootButton.whileHeld(new SequentialCommandGroup(
         new VisionTurn(m_driveSubsystem, m_visionSubsystem),
         new ManualShoot(m_shooterSubsystem, m_visionSubsystem),
@@ -175,11 +179,13 @@ public class RobotContainer {
         )),
       m_ballTrackingSubsystem::isHopperFull
     ));
-    spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem, m_visionSubsystem));
+    /*spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem, m_visionSubsystem));
     spinUpButton.toggleWhenActive(new StartEndCommand(
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 1), 
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 0)
-    ));
+    ));*/
+    spinUpButton.toggleWhenPressed(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem));
+    
     //moveToIntakeButton.whileHeld(()->m_intakeSubsystem.setSpeed(-.4), m_intakeSubsystem);
 
     //manual overrides
@@ -189,7 +195,7 @@ public class RobotContainer {
     manualShootButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
     vomitButton.whileHeld(new DeployIntaker(m_intakeSubsystem).alongWith(new MoveToIntake(m_feederSubsystem)));
     deployIntakeButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
-
+    retractIntakeButton.whileHeld(new RetractIntaker(m_intakeSubsystem));
     //aimButton.whileHeld(new VisionLineUp(m_visionSubsystem, m_driveSubsystem));
     
   }

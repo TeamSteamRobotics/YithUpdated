@@ -30,12 +30,14 @@ public class DeployIntaker extends CommandBase {
   @Override
   public void execute() {
     intake.deployIntake();
+    //intake.readChannels();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntake();
+    //intake.stopIntake();
+    //intake.stopSolenoid();
   }
 
   // Returns true when the command should end.

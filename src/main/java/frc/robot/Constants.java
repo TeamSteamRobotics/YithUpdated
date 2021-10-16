@@ -23,10 +23,10 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants {
-        public static final int leftID1 = 0;
-        public static final int leftID2 = 1;
-        public static final int rightID1 = 2;
-        public static final int rightID2 = 3;
+        public static final int leftFront = 0;
+        public static final int leftBack = 1;
+        public static final int rightFront = 3;
+        public static final int rightBack = 2;
 
         public static final double feetPerTick = 7.168135E-5;
 
@@ -83,8 +83,8 @@ public final class Constants {
     }
 
     public static final class FeederConstants {
-        public static final int feederID1 = 6;
-        public static final int feederID2 = 7;
+        public static final int feederID1 = 7;
+        public static final int feederID2 = 6;
     }
 
     public static final class IntakeConstants {

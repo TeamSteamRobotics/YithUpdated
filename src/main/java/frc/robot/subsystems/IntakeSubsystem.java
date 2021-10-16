@@ -9,7 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants;
 
@@ -19,13 +21,28 @@ public class IntakeSubsystem extends SubsystemBase {
   //WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(IntakeConstants.deployMotorID);
 
   SpeedControllerGroup intakeMotors = new SpeedControllerGroup(lowerIntakeMotor, upperIntakeMotor);
-
+  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(0, 6, 7);
+  
   public void intake(){
    intakeMotors.set(.5);
   }
+  public void readChannels() {
+    System.out.println("Forward Channel::::: " + doubleSolenoid.getFwdChannel());
+    System.out.println("Backward Channel::::: " +doubleSolenoid.getRevChannel());
+  }
 
   public void deployIntake(){
-    intakeMotors.set(-.5);
+    //intakeMotors.set(-.5);
+    doubleSolenoid.set(Value.kForward);
+    doubleSolenoid.getFwdChannel();
+  }
+
+  public void retractIntake() {
+    doubleSolenoid.set(Value.kReverse);
+  }
+
+  public void stopSolenoid() {
+    doubleSolenoid.set(Value.kOff);
   }
 
   public void stopIntake(){

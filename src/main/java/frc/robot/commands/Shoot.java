@@ -44,14 +44,15 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     //shooter.movePID(ShooterConstants.trenchShotSpeed);
-    if(shooter.isAtSpeed() || !tracker.isBallAtTop()){
+    /*if(shooter.isAtSpeed() || !tracker.isBallAtTop()){
       hopper.moveToShooter();
       System.out.println("We are shooting!!!!");
       //shooter.isShootingBall = true;
     }else{
       hopper.stop();
       shooter.isShootingBall= false;
-    }
+    }*/
+    shooter.shoot();
   }
 
   // Called once the command ends or is interrupted.

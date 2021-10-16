@@ -18,6 +18,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import static frc.robot.Constants.DriveConstants;
 
 import java.util.Arrays;
@@ -29,26 +31,26 @@ public class DriveSubsystem extends SubsystemBase {
 
   AHRS gyro = new AHRS();
 /**/
-  WPI_TalonFX left1 = new WPI_TalonFX(0);
-  WPI_TalonFX left2 = new WPI_TalonFX(1);
-  WPI_TalonFX right1 = new WPI_TalonFX(2);
-  WPI_TalonFX right2 = new WPI_TalonFX(3);
+  WPI_TalonFX leftFront = new WPI_TalonFX(Constants.DriveConstants.leftFront);
+  WPI_TalonFX leftBack = new WPI_TalonFX(Constants.DriveConstants.leftBack);
+  WPI_TalonFX rightFront = new WPI_TalonFX(Constants.DriveConstants.rightFront);
+  WPI_TalonFX rightBack = new WPI_TalonFX(Constants.DriveConstants.rightBack);
 
-  Orchestra orch = new Orchestra(Arrays.asList(left1, left2, right1, right2));
+  Orchestra orch = new Orchestra(Arrays.asList(leftFront, leftBack, rightFront, rightBack));
 /*/
-  WPI_TalonSRX left1 = new WPI_TalonSRX(0);
-  WPI_VictorSPX left2 = new WPI_VictorSPX(0);
-  WPI_TalonSRX right1 = new WPI_TalonSRX(1);
-  WPI_VictorSPX right2 = new WPI_VictorSPX(1);
+  WPI_TalonSRX leftFront = new WPI_TalonSRX(0);
+  WPI_VictorSPX leftBack = new WPI_VictorSPX(0);
+  WPI_TalonSRX rightFront = new WPI_TalonSRX(1);
+  WPI_VictorSPX rightBack = new WPI_VictorSPX(1);
 /**/
-  SpeedControllerGroup left = new SpeedControllerGroup(left1, left2);
-  SpeedControllerGroup right = new SpeedControllerGroup(right1, right2);
+  SpeedControllerGroup left = new SpeedControllerGroup(leftBack, leftFront);
+  SpeedControllerGroup right = new SpeedControllerGroup(rightBack, rightFront);
 
   DifferentialDrive diffDrive = new DifferentialDrive(left, right);
 
   public DriveSubsystem(){
-    left1.setSensorPhase(true);
-    right1.setSensorPhase(true);
+    leftFront.setSensorPhase(true);
+    rightFront.setSensorPhase(true);
     diffDrive.setSafetyEnabled(false);
   }
   @Override
@@ -58,7 +60,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void drive(double speed, double rotation, boolean squareInputs) {
     //diffDrive.arcadeDrive(speed, rotation, squareInputs);
-    diffDrive.arcadeDrive(speed, rotation, squareInputs);
+    diffDrive.arcadeDrive(.6 * speed, rotation, squareInputs);
   }
 
   public void curveDrive(double speed, double curvature, boolean quickTurn){
@@ -76,12 +78,12 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public double getDistance(){
-    return DriveConstants.feetPerTick * (left1.getSelectedSensorPosition() - right1.getSelectedSensorPosition()) / 2.0;
+    return DriveConstants.feetPerTick * (leftFront.getSelectedSensorPosition() - rightFront.getSelectedSensorPosition()) / 2.0;
   }
 
   public void resetEncoders(){
-    left1.setSelectedSensorPosition(0);
-    right1.setSelectedSensorPosition(0);
+    leftFront.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
   }
 
   public void autoDrive(double forward, double turn){
@@ -91,21 +93,21 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void keepGoing(){
-    left1.set(left1.get());
-    right1.set(right1.get());
+    leftFront.set(leftFront.get());
+    rightFront.set(rightFront.get());
   }
   public void configureRamping(boolean ramp){
     if (ramp) {
       double rampTime = .69;
-      left1.configOpenloopRamp(rampTime);
-      left2.configOpenloopRamp(rampTime);
-      right1.configOpenloopRamp(rampTime);
-      right2.configOpenloopRamp(rampTime);
+      leftFront.configOpenloopRamp(rampTime);
+      leftBack.configOpenloopRamp(rampTime);
+      rightFront.configOpenloopRamp(rampTime);
+      rightBack.configOpenloopRamp(rampTime);
     } else {
-      left1.configOpenloopRamp(.0);
-      left2.configOpenloopRamp(.0);
-      right1.configOpenloopRamp(.0);
-      right2.configOpenloopRamp(.0);
+      leftFront.configOpenloopRamp(.0);
+      leftBack.configOpenloopRamp(.0);
+      rightFront.configOpenloopRamp(.0);
+      rightBack.configOpenloopRamp(.0);
     }
   }
 
@@ -118,16 +120,16 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void playTone(double frequency){
-    left1.set(ControlMode.MusicTone, frequency);
-    left2.set(ControlMode.MusicTone, frequency);
-    right1.set(ControlMode.MusicTone, frequency);
-    right2.set(ControlMode.MusicTone, frequency);
+    leftFront.set(ControlMode.MusicTone, frequency);
+    leftBack.set(ControlMode.MusicTone, frequency);
+    rightFront.set(ControlMode.MusicTone, frequency);
+    rightBack.set(ControlMode.MusicTone, frequency);
   }
 
   public void stop(){
-    left1.set(0);
-    left2.set(0);
-    right1.set(0);
-    right2.set(0);
+    leftFront.set(0);
+    leftBack.set(0);
+    rightFront.set(0);
+    rightBack.set(0);
   }
 }
