@@ -26,15 +26,15 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intake(){
    intakeMotors.set(.5);
   }
-  public void readChannels() {
-    System.out.println("Forward Channel::::: " + doubleSolenoid.getFwdChannel());
-    System.out.println("Backward Channel::::: " +doubleSolenoid.getRevChannel());
+  public void vomit(){
+    intakeMotors.set(-.5);
   }
+  
 
   public void deployIntake(){
     //intakeMotors.set(-.5);
     doubleSolenoid.set(Value.kForward);
-    doubleSolenoid.getFwdChannel();
+    //doubleSolenoid.getFwdChannel();
   }
 
   public void retractIntake() {

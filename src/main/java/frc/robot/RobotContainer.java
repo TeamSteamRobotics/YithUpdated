@@ -31,6 +31,7 @@ import frc.robot.commands.VisionDrive;
 import frc.robot.commands.VisionLineUp;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VisionTurn2;
+import frc.robot.commands.Vomit;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ClimbDown;
 import frc.robot.commands.ClimbUp;
@@ -80,7 +81,7 @@ public class RobotContainer {
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
-
+  
   
 
 
@@ -179,12 +180,12 @@ public class RobotContainer {
         )),
       m_ballTrackingSubsystem::isHopperFull
     ));
-    /*spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem, m_visionSubsystem));
+    spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem, m_visionSubsystem));
     spinUpButton.toggleWhenActive(new StartEndCommand(
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 1), 
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 0)
-    ));*/
-    spinUpButton.toggleWhenPressed(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem));
+    ));
+    //spinUpButton.toggleWhenPressed(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem));
     
     //moveToIntakeButton.whileHeld(()->m_intakeSubsystem.setSpeed(-.4), m_intakeSubsystem);
 
@@ -193,7 +194,10 @@ public class RobotContainer {
     moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
     manualIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
     manualShootButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
-    vomitButton.whileHeld(new DeployIntaker(m_intakeSubsystem).alongWith(new MoveToIntake(m_feederSubsystem)));
+    vomitButton.whileHeld(
+      new DeployIntaker(m_intakeSubsystem).alongWith(
+        new MoveToIntake(m_feederSubsystem).alongWith(
+          new Vomit(m_intakeSubsystem))));
     deployIntakeButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
     retractIntakeButton.whileHeld(new RetractIntaker(m_intakeSubsystem));
     //aimButton.whileHeld(new VisionLineUp(m_visionSubsystem, m_driveSubsystem));

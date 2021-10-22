@@ -44,7 +44,7 @@ public class Succ extends CommandBase {
   @Override
   public void execute() {
     intaker.intake();
-
+    
     
     if(tracker.isBallInIntake()){
       loopsSinceClear = 0;
