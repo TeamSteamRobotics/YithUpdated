@@ -107,4 +107,32 @@ public final class Constants {
         public static final int bottomSensorPort = 2;
         public static final int intakeSensorPort = 1;
     }
+
+    public static final class XboxControllerConstants {
+        public static final int leftTrigger = 5;
+        public static final int rightTrigger = 6;
+        public static final int backButton = 7;
+        public static final int startButton = 8;
+        public static final int buttonX = 3;
+        public static final int buttonB = 2;
+        public static final int buttonA = 1;
+        public static final int buttonY = 4;
+        public static final int leftStick = 9;
+        public static final int rightStick = 10;
+    }
+
+    public static final class JoystickConstants {
+        public static final int trigger = 1;
+        public static final int thumbButton = 2;
+        public static final int bottomLeftButton = 3;
+        public static final int bottomRightButton = 4;
+        public static final int topLeftButton = 5;
+        public static final int topRightButton = 6;
+        public static final int baseButton7 = 7;
+        public static final int baseButton8 = 8;
+        public static final int baseButton9 = 9;
+        public static final int baseButton10 = 10;
+        public static final int buseButton11 = 11;
+        public static final int buseButton12 = 12;
+    }
 }
