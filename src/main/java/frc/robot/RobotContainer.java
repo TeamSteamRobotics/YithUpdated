@@ -104,7 +104,7 @@ public class RobotContainer {
   POVButton manualIntakeButton = new POVButton(xboxController, XboxControllerConstants.leftPOV); //left POV
   POVButton moveToShooterButton = new POVButton(xboxController, XboxControllerConstants.upPOV); //top POV
   POVButton moveToIntakeButton = new POVButton(xboxController, XboxControllerConstants.downPOV); //bottom POV
-  POVButton manualShootButton = new POVButton(xboxController, XboxControllerConstants.rightPOV); //right POV
+  //POVButton manualShootButton = new POVButton(xboxController, XboxControllerConstants.rightPOV); //right POV
   JoystickButton vomitButton = new JoystickButton(xboxController, XboxControllerConstants.buttonB); //red b button
   JoystickButton deployIntakeButton = new JoystickButton(stick, JoystickConstants.baseButton7); //bottom analog touchdown
   JoystickButton retractIntakeButton = new JoystickButton(stick, JoystickConstants.baseButton8);
@@ -196,10 +196,22 @@ public class RobotContainer {
     moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
     manualIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
     manualShootButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
-    vomitButton.whileHeld(
-      new DeployIntaker(m_intakeSubsystem).alongWith(
+    /*vomitButton.whileHeld(
+      new RetractIntaker(m_intakeSubsystem).alongWith(
         new MoveToIntake(m_feederSubsystem).alongWith(
-          new Vomit(m_intakeSubsystem))));
+          new Vomit(m_intakeSubsystem))));*/
+
+
+
+    vomitButton.toggleWhenPressed(
+      new ConditionalCommand(
+        new RetractIntaker(m_intakeSubsystem).andThen(new Vomit(m_intakeSubsystem).alongWith(new MoveToIntake(m_feederSubsystem))), //if the intake IS deployed, retract it and vomit
+        new Vomit(m_intakeSubsystem).alongWith(new MoveToIntake(m_feederSubsystem)), //if the intake ISN'T deployed, then just vomit
+        m_intakeSubsystem :: isDeployed //the condition that checks if the intake is deployed
+      )
+    );
+     ;
+
     deployIntakeButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
     retractIntakeButton.whileHeld(new RetractIntaker(m_intakeSubsystem));
     //aimButton.whileHeld(new VisionLineUp(m_visionSubsystem, m_driveSubsystem));

@@ -30,17 +30,22 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotors.set(-.5);
   }
   
-
   public void deployIntake(){
     //intakeMotors.set(-.5);
     doubleSolenoid.set(Value.kForward);
     //doubleSolenoid.getFwdChannel();
   }
-
   public void retractIntake() {
     doubleSolenoid.set(Value.kReverse);
   }
 
+  public boolean isDeployed() {
+    if (doubleSolenoid.get() == Value.kForward) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   public void stopSolenoid() {
     doubleSolenoid.set(Value.kOff);
   }
