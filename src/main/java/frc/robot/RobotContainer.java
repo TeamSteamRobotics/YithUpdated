@@ -32,6 +32,8 @@ import frc.robot.commands.VisionLineUp;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VisionTurn2;
 import frc.robot.commands.Vomit;
+import frc.robot.Constants.JoystickConstants;
+import frc.robot.Constants.XboxControllerConstants;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ClimbDown;
 import frc.robot.commands.ClimbUp;
@@ -92,20 +94,20 @@ public class RobotContainer {
   //JoystickButton testShoot = new JoystickButton(stick, 2);
 
 
-  JoystickButton shootButton = new JoystickButton(stick, 1);
+  JoystickButton shootButton = new JoystickButton(stick, JoystickConstants.trigger);
   TriggerButton intakeButton = new TriggerButton(xboxController, Hand.kLeft); //left trigger
-  JoystickButton spinUpButton = new JoystickButton(stick, 2);//xboxController, 6); //thumb button on logeticc joysticc
+  JoystickButton spinUpButton = new JoystickButton(stick, JoystickConstants.thumbButton);//xboxController, 6); //thumb button on logethicc joysthicc
   //JoystickButton climbDownButton = new JoystickButton(stick, 3 );
   //JoystickButton climbUpButton = new JoystickButton(xboxController, 5);
 
   //manual overrides
-  POVButton manualIntakeButton = new POVButton(xboxController, 270); //left POV
-  POVButton moveToShooterButton = new POVButton(xboxController, 0); //top POV
-  POVButton moveToIntakeButton = new POVButton(xboxController, 180); //bottom POV
-  POVButton manualShootButton = new POVButton(xboxController, 90); //right POV
-  JoystickButton vomitButton = new JoystickButton(xboxController, 2); //red b button
-  JoystickButton deployIntakeButton = new JoystickButton(stick, 7); //bottom analog touchdown
-  JoystickButton retractIntakeButton = new JoystickButton(stick, 8);
+  POVButton manualIntakeButton = new POVButton(xboxController, XboxControllerConstants.leftPOV); //left POV
+  POVButton moveToShooterButton = new POVButton(xboxController, XboxControllerConstants.upPOV); //top POV
+  POVButton moveToIntakeButton = new POVButton(xboxController, XboxControllerConstants.downPOV); //bottom POV
+  POVButton manualShootButton = new POVButton(xboxController, XboxControllerConstants.rightPOV); //right POV
+  JoystickButton vomitButton = new JoystickButton(xboxController, XboxControllerConstants.buttonB); //red b button
+  JoystickButton deployIntakeButton = new JoystickButton(stick, JoystickConstants.baseButton7); //bottom analog touchdown
+  JoystickButton retractIntakeButton = new JoystickButton(stick, JoystickConstants.baseButton8);
   //JoystickButton climbUpButton = new JoystickButton(xboxController, 5); //left shoulder
   //JoystickButton climbDownButton = new JoystickButton(xboxController, 6); //right shoulder
   //JoystickButton climbButton = new JoystickButton(xboxController, 4);

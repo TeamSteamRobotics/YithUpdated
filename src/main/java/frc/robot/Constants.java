@@ -119,6 +119,11 @@ public final class Constants {
         public static final int buttonY = 4;
         public static final int leftStick = 9;
         public static final int rightStick = 10;
+        public static final int leftPOV = 270;
+        public static final int rightPOV = 90;
+        public static final int upPOV = 0;
+        public static final int downPOV = 180;
+
     }
 
     public static final class JoystickConstants {
