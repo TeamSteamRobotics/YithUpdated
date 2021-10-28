@@ -195,7 +195,7 @@ public class RobotContainer {
     moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));
     moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
     manualIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
-    manualShootButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
+    //manualShootButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
     /*vomitButton.whileHeld(
       new RetractIntaker(m_intakeSubsystem).alongWith(
         new MoveToIntake(m_feederSubsystem).alongWith(
