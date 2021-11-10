@@ -25,8 +25,7 @@ public class HopperSubsystem extends SubsystemBase {
   SpeedControllerGroup hopper = new SpeedControllerGroup(hopperMotor, hopperMotor2);
 
   public HopperSubsystem(){
-    //Shuffleboard.getTab("hopper").addNumber("hopper 1 amperage", () -> hopperMotor.getSupplyCurrent());
-    Shuffleboard.getTab("hopper").addNumber("hopper 2 amperage", () -> hopperMotor2.getSupplyCurrent());
+    
   }
 
   public void moveToShooter(){

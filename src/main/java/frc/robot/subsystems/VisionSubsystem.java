@@ -12,7 +12,6 @@ import java.util.Arrays;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.VisionTurn;
 
@@ -31,7 +30,7 @@ public class VisionSubsystem extends SubsystemBase {
  
 
   public VisionSubsystem(){
-    Shuffleboard.getTab("driverInfo").addBoolean("aimedAtTarget", () -> Math.abs(getTargetX()) < .05);
+
   }
 
   public double getTargetDistance(){
@@ -42,16 +41,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    //System.out.println(getTargetX());
-    /*counter = (counter + 1) % 10;
 
-    double[] defaultPose = {0, 0, 0};
-    if(counter == 2){
-      double[] pose = poseEntry.getDoubleArray(defaultPose);
-      //System.out.println(pose[0]+", "+pose[1]+", "+pose[2]);
-    }*/
-    //System.out.println(table.getTable("chameleon-vision").getSubTables());
   }
 
   /**

@@ -47,7 +47,6 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMaster.config_kF(0, 0.01760006);
     shooterMaster.config_IntegralZone(0, 1000);
 
-    Shuffleboard.getTab("driverInfo").addBoolean("shooter at speed", this::isAtSpeed);
 
     populateDistanceTable();
   }
